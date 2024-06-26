@@ -4,6 +4,24 @@ import { useParams } from "react-router-dom";
 
 function Dashboard() {
   const { userId } = useParams();
+  const [loanAmount, setLoanAmount] = useState(0);
+  const [loanType, setLoanType] = useState("home");
+  const [tenure, setTenure] = useState(0);
+
+  const newLoan = async (e) => {
+    e.preventDefault();
+    const response = await fetch(
+      `http://localhost:8080/loans/add/${userId}/${loanAmount}/${loanType}/${tenure}`
+    );
+    const data = await response.json();
+    console.log(data);
+    if (data) {
+      document.getElementById("newLoan").innerHTML =
+        "Loan Applied Successfully";
+    } else {
+      document.getElementById("newLoan").innerHTML = "Loan Application Failed";
+    }
+  };
 
   const fetchUserById = async () => {
     const response = await fetch(`http://localhost:8080/users/${userId}`);
@@ -181,6 +199,38 @@ function Dashboard() {
             </button>
           </div>
           <div id="loanDetails"></div>
+        </div>
+
+        <div className="card">
+          <h2>New loan </h2>
+          <div className="input-group">
+            <form onSubmit={newLoan}>
+              <input
+                type="number"
+                id="loanAmount"
+                placeholder="Enter Loan Amount"
+                onChange={(e) => setLoanAmount(e.target.value)}
+              />
+              <select
+                id="loanType"
+                onChange={(e) => setLoanType(e.target.value)}
+              >
+                <option value="home">Home Loan</option>
+                <option value="car">Car Loan</option>
+                <option value="edu">Education Loan</option>
+              </select>
+              <input
+                type="number"
+                id="tenure"
+                placeholder="Enter Tenure"
+                onChange={(e) => setTenure(e.target.value)}
+              />
+              <button className="button" type="submit">
+                Apply for Loan
+              </button>
+            </form>
+          </div>
+          <div id="newLoan"></div>
         </div>
       </div>
     </>
