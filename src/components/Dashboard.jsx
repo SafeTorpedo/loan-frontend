@@ -171,34 +171,36 @@ function Dashboard() {
             </g>
           </svg>
         </div>
-      </div>
-      <div className="content flex">
-        <p style={{ fontWeight: 800, fontSize: "medium" }}>
-          Your One Stop Solution for all Finance Related Problems
-        </p>
+        <div className="content flex">
+          <p style={{ fontWeight: 800, fontSize: "large" }}>
+            Your One Stop Solution for all Finance Related Problems
+          </p>
+        </div>
       </div>
 
       <div className="container">
-        <div className="card">
-          <h2>User Details</h2>
-          <div className="input-group">
-            {/* <input type="number" id="userId" placeholder="Enter User ID" /> */}
-            <button className="button" onClick={fetchUserById}>
-              Fetch User Details
-            </button>
+        <div className="cover">
+          <div className="card">
+            <h2>User Details</h2>
+            <div className="input-group">
+              {/* <input type="number" id="userId" placeholder="Enter User ID" /> */}
+              <button className="button" onClick={fetchUserById}>
+                Fetch User Details
+              </button>
+            </div>
+            <div id="userDetails"></div>
           </div>
-          <div id="userDetails"></div>
-        </div>
 
-        <div className="card">
-          <h2>My Loans </h2>
-          <div className="input-group">
-            {/* <input type="number" id="loanId" placeholder="Enter Loan ID" /> */}
-            <button className="button" onClick={fetchLoanById}>
-              Fetch my Loans
-            </button>
+          <div className="card">
+            <h2>My Loans </h2>
+            <div className="input-group">
+              {/* <input type="number" id="loanId" placeholder="Enter Loan ID" /> */}
+              <button className="button" onClick={fetchLoanById}>
+                Fetch my Loans
+              </button>
+            </div>
+            <div id="loanDetails"></div>
           </div>
-          <div id="loanDetails"></div>
         </div>
 
         <div className="card">
@@ -211,6 +213,13 @@ function Dashboard() {
                 placeholder="Enter Loan Amount"
                 onChange={(e) => setLoanAmount(e.target.value)}
               />
+
+              <input
+                type="number"
+                id="tenure"
+                placeholder="Enter Tenure"
+                onChange={(e) => setTenure(e.target.value)}
+              />
               <select
                 id="loanType"
                 onChange={(e) => setLoanType(e.target.value)}
@@ -219,12 +228,6 @@ function Dashboard() {
                 <option value="car">Car Loan</option>
                 <option value="edu">Education Loan</option>
               </select>
-              <input
-                type="number"
-                id="tenure"
-                placeholder="Enter Tenure"
-                onChange={(e) => setTenure(e.target.value)}
-              />
               <button className="button" type="submit">
                 Apply for Loan
               </button>
