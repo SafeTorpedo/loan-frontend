@@ -61,6 +61,18 @@ function Dashboard() {
     loan = loan.filter((loan) => loan.applicant.userId == userId);
     console.log(loan);
 
+    for (let i = 0; i < loan.length; i++) {
+      if (loan[i].loanStatus === "APPROVED") {
+        const response = await fetch(
+          `http://localhost:8080/loans/${loan[i].loanId}/due-date`
+        );
+        const dueDate = await response.json();
+        loan[i].dueDate = new Date(dueDate).toLocaleDateString();
+      } else {
+        loan[i].dueDate = "Not Applicable";
+      }
+    }
+
     if (loan.length > 0) {
       let loanTable = `<table>
       <thead>
@@ -71,6 +83,7 @@ function Dashboard() {
               <th>Duration</th>
               <th>Applicant Name</th>
               <th>Loan Status</th>
+              <th>Due Date</th>
             </tr>
           </thead>
           <tbody>
@@ -84,6 +97,7 @@ function Dashboard() {
               <td>${loan.tenure}</td>
               <td>${loan.applicant.name}</td>
                 <td>${loan.loanStatus}</td>
+                <td>${loan.dueDate}</td>
             </tr>`
               )
               .join("")}
