@@ -10,6 +10,10 @@ function Dashboard() {
 
   const newLoan = async (e) => {
     e.preventDefault();
+    if (loanAmount <= 0 || tenure <= 0) {
+      document.getElementById("newLoan").innerHTML = "Invalid Loan Amount";
+      return;
+    }
     const response = await fetch(
       `http://localhost:8080/loans/add/${userId}/${loanAmount}/${loanType}/${tenure}`
     );
