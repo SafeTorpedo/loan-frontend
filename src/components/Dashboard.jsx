@@ -14,9 +14,18 @@ function Dashboard() {
       document.getElementById("newLoan").innerHTML = "Invalid Loan Amount";
       return;
     }
-    const response = await fetch(
-      `http://localhost:8080/loans/add/${userId}/${loanAmount}/${loanType}/${tenure}`
-    );
+    const response = await fetch(`http://localhost:8080/loans/add`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: userId,
+        loanAmount: loanAmount,
+        loanType: loanType,
+        tenure: tenure,
+      }),
+    });
     const data = await response.json();
     console.log(data);
     if (data) {
